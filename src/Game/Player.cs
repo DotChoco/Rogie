@@ -1,3 +1,4 @@
+//RDE means "Rogie Dot Engine"
 using Rogie.RDE;
 
 namespace Rogie;
