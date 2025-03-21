@@ -5,6 +5,6 @@ public sealed class Render {
     public Render(Map renderMap) {
         if (renderMap != null)
             _rMap = renderMap;
-
+        
     }
 }
