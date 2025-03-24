@@ -1,5 +1,5 @@
 //RDE means "Rogie Dot Engine"
-using Rogie.RDE;
+using RDE.Structs;
 
 namespace Rogie;
 public sealed class Player {
