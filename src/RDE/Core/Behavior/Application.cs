@@ -5,7 +5,6 @@ namespace RDE.Behavior;
 
 public class Application {
     private static string _gamePath = $@"{Environment.CurrentDirectory}\";
-    public static string GamePath = $@"{Environment.CurrentDirectory}\";
     private static string _exportPath = @"bin\Debug\net9.0\";
 
 
@@ -25,7 +24,7 @@ public class Application {
             Directory.CreateDirectory(_exportAssetsPath);
         try
         {
-            CopyAssetsToBuild(AssetsPath, _exportAssetsPath);
+            CopiarEstructuraCompleta(AssetsPath, _exportAssetsPath);
             _assetsPath = _exportAssetsPath;
             // Console.WriteLine("¡Copia exitosa!");
         }
@@ -35,7 +34,7 @@ public class Application {
         }
     }
     
-    static void CopyAssetsToBuild(string origen, string destino)
+    static void CopiarEstructuraCompleta(string origen, string destino)
     {
         // Crear el directorio de destino si no existe
         Directory.CreateDirectory(destino);
@@ -52,7 +51,7 @@ public class Application {
         foreach (string subDir in Directory.GetDirectories(origen)) {
             string nombreSubDir = System.IO.Path.GetFileName(subDir);
             string destinoSubDir = System.IO.Path.Combine(destino, nombreSubDir);
-            CopyAssetsToBuild(subDir, destinoSubDir); // Llamada recursiva
+            CopiarEstructuraCompleta(subDir, destinoSubDir); // Llamada recursiva
         }
     }
 

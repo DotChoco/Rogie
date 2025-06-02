@@ -1,6 +1,5 @@
-using System;
-using System.IO;
-using System.Threading;
+// using System;
+// using System.IO;
 using NAudio.Wave;
 using NVorbis;
 using RDE.Structs.Enums;
@@ -14,10 +13,10 @@ public sealed class Audio{
     ///</summary>
     public AudioFormat Format = AudioFormat.MP3;
     public Audio(){}
-    public Audio(string SourcePath) => this.SourcePath = SourcePath; 
-    
+    public Audio(string SourcePath) => this.SourcePath = SourcePath;
+
     public void Play() => Play(Format);
-    
+
     public void Play(AudioFormat format){
         Format = format;
 
@@ -75,7 +74,7 @@ public sealed class Audio{
 
         Console.WriteLine("Reproduciendo archivo .ogg... Presiona Enter para detener.");
         Thread.Sleep(audioFile.TotalTime);
-        /*Console.WriteLine(audioFile.TotalTime);*/
+        // Console.WriteLine(audioFile.TotalTime);
     }
 
     private void PlayWAV(){
@@ -83,7 +82,7 @@ public sealed class Audio{
         var outputDevice = new WaveOutEvent();
         outputDevice.Init(audioFile);
         outputDevice.Play();
-            
+
         Console.WriteLine("Reproduciendo sonido WAV... Presiona 'CTRL + C' para salir.");
         /*Thread.Sleep(audioFile.TotalTime);*/
         /*Console.WriteLine(audioFile.TotalTime);*/
