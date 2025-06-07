@@ -1,28 +1,30 @@
-﻿using RDE;
-using RDE.Behavior;
-using RDE.Structs.Enums;
+﻿using RDE.Core;
+using RDE.Media.Audio;
 using System;
 
 namespace Rogie;
 class Program {
-  static void Main(string[] args) {
+  static void Main() {
 
+    Application.SetDebugMode(DebugMode.INTERNAL);
     Console.Clear();
     // Application.ExportAssets();
-    Console.WriteLine(Application.GamePath);
+    Console.WriteLine(Application.Path);
 
     // Game game = new();
-    Audio audio = new();
-    audio.Format = AudioFormat.OGG;
-    audio.SourcePath = $@"{Application.AssetsPath}\Music\revnuyu.ogg";
-    Console.WriteLine(audio.SourcePath);
-    // audio.SourcePath = $@"E:/carlo/Download/Pin/Music/Dj_Satomi-sound_of_my_dream.ogg";
-    // audio.SourcePath = $@"{Application.AssetsPath}/Music/ssstik.io_1734932779800.flac";
-    // audio.SourcePath = $@"{Application.AssetsPath}/Music/ssstik.io_1736893033133.mp3";
-    // audio.SourcePath = $@"{Application.AssetsPath}/Music/BGM.wav";
-    // audio.Format = AudioFormat.FLAC;
+    AudioSource src = new();
+    // src.SourcePath = $@"{Application.AssetsPath}\Music\revnuyu.ogg";
+    // src.SourcePath = $@"{Application.AssetsPath}\Music\revnuyu.ogg";
+    src.SourcePath = $@"{Application.AssetsPath}\Music\DJ Satomi - Waves.mp3";
+    Console.WriteLine(src.SourcePath);
 
-    audio.Play();
+    src.Format = AudioFormat.MP3;
+    // src.Format = AudioFormat.OGG;
+    // src.Format = AudioFormat.WAV;
+    // src.Format = AudioFormat.FLAC;
+
+    AudioPlayer aup = new(src);
+    aup.Play();
 
   }
 }

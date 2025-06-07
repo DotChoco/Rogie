@@ -1,6 +1,6 @@
 using System;
 using System.IO;
-using RDE.Behavior;
+using RDE.Core;
 
 namespace Rogie;
 
@@ -23,15 +23,15 @@ public struct Door {
 }
 
 public sealed class Game {
-    
+
     #region Variables
-    
+
     public Room[] Rooms { get; set; } = new Room[3];
     string path = string.Empty;
-    
+
     #endregion
-    
-    
+
+
     public Game(){
         path = $@"{Application.AssetsPath}\stages\stage1";
         // RenderMap();
@@ -62,7 +62,7 @@ public sealed class Game {
                     {
                         i = j;
                         if(line[j].Length > 0 && line[j].StartsWith('d')){
-                            room.doors[doorsConter] = 
+                            room.doors[doorsConter] =
                                 GetDoor(line[j].Split(':')[1], room.walls);
                             doorsConter++;
                         }
@@ -76,7 +76,7 @@ public sealed class Game {
             }
         }
 
-    
+
     }
 
 
@@ -85,10 +85,10 @@ public sealed class Game {
         //line example: [3,rw,2]
         string lineEdited = line.Remove(line.Length - 1);
         lineEdited = lineEdited.Remove(0,1);
-        
+
         //Result example:  3,rw,2
         string[] data = lineEdited.Split(',');
-        
+
         door.Pos = short.Parse(data[0]);
 
         if(data[1] == "tw")
@@ -105,7 +105,7 @@ public sealed class Game {
     }
 
 
-    
+
 }
 
 
