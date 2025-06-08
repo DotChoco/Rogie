@@ -1,5 +1,5 @@
 ﻿using System;
-using RDE.Structs;
+using RDE.Core.Structs;
 
 namespace RDE.Statics;
 
@@ -10,14 +10,14 @@ public static class TerminalCofig {
             Console.BufferHeight = size.y + 1;
             Console.WindowHeight = size.y + 1;
         }
-        
+
         //Make a new horizontal space in the console
         if (size.x >= Console.WindowWidth) {
             Console.BufferWidth = size.x + 1;
             Console.WindowWidth = size.x + 1;
         }
     }
-    
+
     public static void ReduceTerminalSize() {
         //Make a new vertical space in the console
         if (Console.WindowHeight > 0) { Console.WindowHeight--; }

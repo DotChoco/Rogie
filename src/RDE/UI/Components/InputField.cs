@@ -1,7 +1,7 @@
 using System;
 using System.Text;
 using RDE.Models;
-using RDE.Structs;
+using RDE.Core.Structs;
 
 namespace RDE.Components;
 public sealed class InputField : Fields
@@ -18,11 +18,11 @@ public sealed class InputField : Fields
 
     //Encapsulation
     public InputFieldData Data { get => _data; set => _data = value; }
-    public string Content => _content; 
-    
+    public string Content => _content;
+
     #endregion
 
-    
+
     //Size Methods
     public Component SetSize(int width, int height)
         => SetSize(new(width, height));
@@ -31,42 +31,42 @@ public sealed class InputField : Fields
         _height = size.y > _minHeight ? size.y : _minHeight;
         return this;
     }
-    
+
     public Vector2 GetSize()  => new (_width, _height);
 
-    
-    
-    
-    
-    
+
+
+
+
+
     public InputField() => _data = null;
-    
+
     public InputField(InputFieldData data) => _data = data;
 
     public void SetData(InputFieldData data)
     {
         //Reset StreamBuilder Data
         SbData.Clear();
-        
+
         //Set Colors for the Placeholder
         _data.Placeholder.color = data.Placeholder.color == string.Empty ? DEFAULT_PH_COLOR : data.Placeholder.color;
 
         //Set Colors that applied to Borders
         _data.ContentColor = data.ContentColor == string.Empty ? Color.DEFAULT_COLOR : data.ContentColor;
         _color = _data.ComponentColor;
-        
+
         //Set Colors that applied to Text
         _data.ComponentColor = data.ComponentColor == string.Empty ? DEFAULT_BORDER_COLOR : data.ComponentColor;
-        
+
         //Set Border Style
         Style = data.Style;
-        
+
         MakeTopLine(1, _width);
         MakeMidLine(1, _width, _height);
         MakeBottonLine(1, _width);
     }
-    
-    
+
+
     public sealed override Component Render()
     {
         if (_data != null)
@@ -86,24 +86,24 @@ public sealed class InputField : Fields
         SetCursorPosition(transform.position.x + 1, transform.position.y + 1);
         Console.Write(_data.Placeholder.value);
     }
-    
+
 
 
     public void ReadInput()
     {
         Console.CursorVisible = false;
         Color.SetTextColor(_data.ContentColor);
-        
+
         // Use the StringBuilder to make the input result
         StringBuilder inputData = new();
         ConsoleKeyInfo keyPress;
         SetCursorPosition(transform.position.x + 1, transform.position.y + 1);
-       
-        
+
+
         while (true) {
             // Read key pressed
             keyPress = Console.ReadKey(intercept: true);
-            
+
             // Keep data in the field and escape
             if (keyPress.Key == ConsoleKey.Enter)
             {
@@ -132,10 +132,10 @@ public sealed class InputField : Fields
                         SetCursorPosition(transform.position.x + 1, transform.position.y + 1);
                         RenderPlaceholder();
                         Color.SetTextColor(_data.ContentColor);
-                    } 
+                    }
                 }
             }
-            //Save and print the character 
+            //Save and print the character
             else
             {
                 if (Console.GetCursorPosition().Left <= (CursorPosition.x + _width) - 1)

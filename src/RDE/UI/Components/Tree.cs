@@ -1,19 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using RDE.Models;
-using RDE.Structs;
+using RDE.Core.Structs;
 
 namespace RDE.Components;
-/// <summary>
-/// Tree Item
-/// </summary>
-// ReSharper disable once InconsistentNaming
-public sealed class TItem
-{
-    public string Color { get; set; } = string.Empty;
-    public string Content { get; set; } = string.Empty;
-    public List<TItem> Children { get; set; } = new();
-}
+
 
 
 public sealed class Tree : Component

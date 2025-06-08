@@ -1,5 +1,5 @@
 ﻿using RDE.Models;
-using RDE.Structs;
+using RDE.Core.Structs;
 
 namespace RDE.Components;
 
@@ -20,7 +20,7 @@ public sealed class Region: Fields
         MakeBottonLine(1,_width);
         return this;
     }
-    
+
     //Size Methods
     public Component SetSize(int width, int height)
         => SetSize(new(width, height));
@@ -29,10 +29,10 @@ public sealed class Region: Fields
         _height = size.y > _minHeight ? size.y : _minHeight;
         return this;
     }
-    
+
     public Vector2 GetSize()  => new (_width, _height);
 
-    
-    
-    
+
+
+
 }

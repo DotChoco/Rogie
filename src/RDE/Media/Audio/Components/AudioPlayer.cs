@@ -1,5 +1,6 @@
 using RDE.Core.Logs;
 using System.IO;
+using System;
 namespace RDE.Media.Audio;
 
 public sealed class AudioPlayer{
@@ -8,7 +9,6 @@ public sealed class AudioPlayer{
   private Wav wav = new();
   private Ogg ogg = new();
   private Flac flac = new();
-  private AudioHeader _audioHeader = new();
 
   ///<summary>
   ///Thats the file format that will use to read the Audio File
@@ -20,66 +20,70 @@ public sealed class AudioPlayer{
   public AudioSource? source = new();
 
   public Log Play() => PlayAudio();
-  // public Log Pause() => PauseAudio();
-  // public Log Stop() => StopAudio();
-  // public Log Resume() => ResumeAudio();
+  public Log Pause() => PauseAudio();
+  public Log Stop() => StopAudio();
 
   private Log PlayAudio(){
+    if(source == null) {
+      DataLog.content = "The source is empty";
+      return DataLog;
+    }
 
-  if(source == null)
-  {
-    DataLog.content = "The source is empty";
+    // Verify if the file exists
+    if (!File.Exists(source.SourcePath)) {
+      DataLog.content = $"The \"{source.SourcePath}\" doesn't exists";
+      return DataLog;
+    }
+
+    _format = source.Format;
+
+    if(_format == AudioFormat.None){
+      DataLog.content = "The audio can't be reconozited";
+      return DataLog;
+    }
+
+
+    // Play the audio if the source is mp3
+    if(_format == AudioFormat.MP3){
+      mp3.Play(source.SourcePath);
+      DataLog = mp3.Log;
+    }
+
+    // Play the audio if the source is ogg
+    else if(_format == AudioFormat.OGG){
+      ogg.Play(source.SourcePath);
+      DataLog = ogg.Log;
+    }
+
+    // Play the audio if the source is flac
+    else if(_format == AudioFormat.FLAC){
+      return flac.Play(source.SourcePath);
+      // DataLog = flac.Log;
+    }
+
+    // Play the audio if the source is wav
+    else if(_format == AudioFormat.WAV){
+      wav.Play(source.SourcePath);
+      DataLog = wav.Log;
+    }
+
     return DataLog;
   }
 
-  // Verify if the file exists
-  if (!File.Exists(source.SourcePath)) {
-    DataLog.content = $"The \"{source.SourcePath}\" doesn't exists";
+
+  private Log PauseAudio(){
+    if(_format == AudioFormat.OGG){
+      ogg.Pause();
+      DataLog = ogg.Log;
+    }
     return DataLog;
   }
-  // _format = _audioHeader.GetFormat(source.SourcePath);
-  var header = _audioHeader.GetFormat(source.SourcePath);
-  _format = source.Format;
-  // _format = AudioFormat.OGG;
 
-
-  // Play the audio if the source is mp3
-  if(_format == AudioFormat.MP3){
-    mp3.BGP = source.BGP;
-    mp3.Play(source.SourcePath);
-    DataLog = mp3.Log;
+  private Log StopAudio(){
+    if(_format == AudioFormat.OGG){
+      ogg.Stop();
+      DataLog = ogg.Log;
+    }
+    return DataLog;
   }
-
-  // Play the audio if the source is ogg
-  else if(_format == AudioFormat.OGG){
-    ogg.BGP = source.BGP;
-    ogg.Play(source.SourcePath);
-    DataLog = ogg.Log;
-  }
-
-  // Play the audio if the source is flac
-  else if(_format == AudioFormat.FLAC){
-    flac.BGP = source.BGP;
-    flac.Play(source.SourcePath);
-    DataLog = flac.Log;
-  }
-
-  // Play the audio if the source is wav
-  else if(_format == AudioFormat.WAV){
-    wav.BGP = source.BGP;
-    wav.Play(source.SourcePath);
-    DataLog = wav.Log;
-  }
-
-  return DataLog;
-  }
-
-
-
-
-
-
-
-
-
 }

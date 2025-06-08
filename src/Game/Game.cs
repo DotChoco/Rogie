@@ -1,6 +1,6 @@
 using System;
 using System.IO;
-using RDE.Core;
+using RDE.Core.Behavior;
 
 namespace Rogie;
 
