@@ -7,6 +7,7 @@ public struct Vector2 {
         this.x = x;
         this.y = y;
     }
+    public Vector2(){}
 
     public static Vector2 operator +(Vector2 a, Vector2 b)
         => new (a.x + b.x, a.y + b.y);
@@ -24,13 +25,10 @@ public struct Vector2 {
 
 
     // Sobreescribimos Equals y GetHashCode para coherencia con == y !=
-    public override bool Equals(object obj)
-    {
-        if (obj is Vector2 other)
-        {
-            return this == other;
-        }
-        return false;
+    public override bool Equals(object obj){
+      if (obj is Vector2 other)
+        return this == other;
+      return false;
     }
 
     public override int GetHashCode() => x.GetHashCode() ^ y.GetHashCode();

@@ -6,7 +6,7 @@ namespace RDE.Core.Behavior;
 public class Application {
 
   // Path from the Game is Execute
-  private static string _path { get; set; } = AppDomain.CurrentDomain.BaseDirectory;
+  private static string _path = AppDomain.CurrentDomain.BaseDirectory;
   public static string Path { get => _path; }
 
 
@@ -25,7 +25,7 @@ public class Application {
 
   // Modes to define how and where the asssets will read's
   private static BuildMode _buildMode = BuildMode.NONE;
-  public static BuildMode BuildMode { get => _buildMode; set => _buildMode = value; }
+  public static BuildMode BuildMode { get => _buildMode; }
 
 
   public static void SetBuildMode(BuildMode bm)  {
@@ -38,10 +38,7 @@ public class Application {
     if(!Directory.Exists(_export_Path))
       Directory.CreateDirectory(_export_Path);
 
-    try {
-      CopyAssetsToBuild(_assetsPath, _export_Path);
-    }
-    catch (Exception ex) { Console.WriteLine($"Error: {ex.Message}"); }
+    CopyAssetsToBuild(_assetsPath, _export_Path);
   }
 
   static void CopyAssetsToBuild(string origin, string destiny) {
