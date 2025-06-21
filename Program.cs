@@ -8,13 +8,14 @@ class Program {
   static void Main() {
 
     Console.Clear();
-    Application.SetBuildMode(BuildMode.NONE);
+    Application.Init();
 
     // Game game = new();
     AudioSource src = new();
 
-    // src.SourcePath = $@"{Application.AssetsPath}\Music\DJ Satomi - Waves.mp3";
-    src.SourcePath = $@"{Application.AssetsPath}\Music\If_I_could.ogg";
+    src.SourcePath = $@"{Application.AssetsPath}\Music\DJ Satomi - Waves.mp3";
+    // src.SourcePath = $@"{Application.AssetsPath}\Music\If_I_could.ogg";
+    // src.SourcePath = $@"{Application.AssetsPath}\Music\ILLIT-Tick_Tack.ogg";
     // src.SourcePath = $@"{Application.AssetsPath}\Music\Got-me-dancing.ogg";
     // src.SourcePath = $@"{Application.AssetsPath}\Music\Love_Song.flac";
     // src.SourcePath = $@"{Application.AssetsPath}\Music\Bounce.wav";
@@ -25,6 +26,8 @@ class Program {
     Console.WriteLine("  P = Play/Reanudar");
     Console.WriteLine("  S = Pausa");
     Console.WriteLine("  Q = Salir");
+    Console.WriteLine("  F = Forward");
+    Console.WriteLine("  B = Backward");
 
     while (true)
     {
@@ -41,33 +44,13 @@ class Program {
         case ConsoleKey.Q:
           aup.Stop();
           return;
+        case ConsoleKey.F:
+            aup.Forward(10);
+          break;
+        case ConsoleKey.B:
+          aup.Backward(10);
+          break;
       }
     }
-
-    // await Task.Run(() =>
-    // {
-    //   while (true)
-    //   {
-    //     var key = Console.ReadKey(true).Key;
-    //
-    //     switch (key)
-    //     {
-    //         case ConsoleKey.P:
-    //           aup.Play();
-    //           Console.WriteLine("Play");
-    //           break;
-    //         case ConsoleKey.S:
-    //           aup.Pause();
-    //           Console.WriteLine("Pause");
-    //           break;
-    //         case ConsoleKey.Q:
-    //           aup.Stop();
-    //           Console.WriteLine("Stop");
-    //           return;
-    //     }
-    //   }
-    // });
-    // Console.WriteLine(.content);
-
   }
 }

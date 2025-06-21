@@ -1,7 +1,13 @@
 using System;
+using System.Text.Json;
 using System.IO;
 
 namespace RDE.Core.Behavior;
+
+public sealed class BuildConfig{
+  public BuildMode BuildMode { get; set; }
+}
+
 
 public class Application {
 
@@ -26,6 +32,17 @@ public class Application {
   // Modes to define how and where the asssets will read's
   private static BuildMode _buildMode = BuildMode.NONE;
   public static BuildMode BuildMode { get => _buildMode; }
+
+
+  public static void Init(){
+    BuildConfig bc = new(){ BuildMode = BuildMode.BUILD_R };
+    string data = string.Empty;
+    if(File.Exists(_projectPath + "BUILD")){
+      StreamReader sr = new(_projectPath + "BUILD");
+      bc = JsonSerializer.Deserialize<BuildConfig>(sr.ReadToEnd());
+      _buildMode = bc.BuildMode;
+    }
+  }
 
 
   public static void SetBuildMode(BuildMode bm)  {

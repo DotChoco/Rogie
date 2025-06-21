@@ -1,5 +1,5 @@
 using RDE.Core.Logs;
-using System.IO;
+// using System.IO;
 using System;
 namespace RDE.Media.Audio;
 
@@ -22,20 +22,22 @@ public sealed class AudioPlayer{
   public Log Play() => PlayAudio();
   public Log Pause() => PauseAudio();
   public Log Stop() => StopAudio();
+  bool IsPlaying = false;
+  public void Forward(int time){
+    if(IsPlaying)
+      ogg.Forward(time);
+  }
+  public void Backward(int time){
+    if(IsPlaying)
+      ogg.Backward(time);
+  }
 
   private Log PlayAudio(){
-    if(source == null) {
-      DataLog.content = "The source is empty";
-      return DataLog;
-    }
-
-    // Verify if the file exists
-    if (!File.Exists(source.SourcePath)) {
-      DataLog.content = $"The \"{source.SourcePath}\" doesn't exists";
-      return DataLog;
-    }
-
+    //Extract AudioFormat from FileHeader
     _format = source.Format;
+
+    //Check if the file exists and isn't null string
+    DataLog.content = DataLog.FileExists(source.SourcePath);
 
     if(_format == AudioFormat.None){
       DataLog.content = "The audio can't be reconozited";
@@ -46,25 +48,26 @@ public sealed class AudioPlayer{
     // Play the audio if the source is mp3
     if(_format == AudioFormat.MP3){
       mp3.Play(source.SourcePath);
-      DataLog = mp3.Log;
+      return mp3.Log;
     }
 
     // Play the audio if the source is ogg
     else if(_format == AudioFormat.OGG){
+      IsPlaying = true;
       ogg.Play(source.SourcePath);
-      DataLog = ogg.Log;
+      return ogg.Log;
     }
 
     // Play the audio if the source is flac
     else if(_format == AudioFormat.FLAC){
-      return flac.Play(source.SourcePath);
-      // DataLog = flac.Log;
+      flac.Play(source.SourcePath);
+      return flac.Log;
     }
 
     // Play the audio if the source is wav
     else if(_format == AudioFormat.WAV){
       wav.Play(source.SourcePath);
-      DataLog = wav.Log;
+      return wav.Log;
     }
 
     return DataLog;
@@ -72,6 +75,7 @@ public sealed class AudioPlayer{
 
 
   private Log PauseAudio(){
+    IsPlaying = false;
     if(_format == AudioFormat.OGG){
       ogg.Pause();
       DataLog = ogg.Log;
@@ -80,6 +84,7 @@ public sealed class AudioPlayer{
   }
 
   private Log StopAudio(){
+    IsPlaying = false;
     if(_format == AudioFormat.OGG){
       ogg.Stop();
       DataLog = ogg.Log;

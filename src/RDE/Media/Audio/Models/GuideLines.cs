@@ -3,11 +3,15 @@ using System;
 
 namespace RDE.Media.Audio;
 
-public class GuideLines{
-  //Background Process
-  // public bool BGP = false;
-  public Log Log = new();
+public interface GuideLines{
+  TimeSpan CurrentTime { get; }
+  Log Log { get; }
 
-  protected string _sourcePath = String.Empty;
-
+  void LoadAudio(string SourcePath);
+  void Play(string SourcePath);
+  void Stop();
+  void Pause();
+  void Backward(int sec);
+  void Forward(int sec);
+  void Reset();
 }

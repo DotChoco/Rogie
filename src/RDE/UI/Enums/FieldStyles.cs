@@ -1,4 +1,4 @@
-﻿namespace RDE.Structs.Enums;
+﻿namespace RDE.UI.Enums;
 
 public enum FieldStyles
 {

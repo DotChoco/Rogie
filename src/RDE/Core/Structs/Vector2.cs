@@ -7,7 +7,6 @@ public struct Vector2 {
         this.x = x;
         this.y = y;
     }
-    public Vector2(){}
 
     public static Vector2 operator +(Vector2 a, Vector2 b)
         => new (a.x + b.x, a.y + b.y);

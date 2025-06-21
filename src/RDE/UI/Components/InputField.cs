@@ -67,15 +67,13 @@ public sealed class InputField : Fields
     }
 
 
-    public sealed override Component Render()
-    {
-        if (_data != null)
-        {
-            SetData(_data);
-            base.Render();
-            RenderPlaceholder();
-        }
-        return this;
+    public sealed override Component Render(){
+      if (_data != null){
+        SetData(_data);
+        base.Render();
+        RenderPlaceholder();
+      }
+      return this;
     }
 
 

@@ -1,5 +1,5 @@
 ﻿using RDE.Components;
-using RDE.Structs.Enums;
+using RDE.UI.Enums;
 
 namespace RDE.Models;
 
